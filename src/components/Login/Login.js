@@ -12,10 +12,27 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
+  
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    );
+    console.log('useEffect');
+
+    return () => {
+      console.log('celaning up!')
+    };
+  }, [enteredPassword]);
+    
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log('validation');
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    }, 500);
+
+    return () => {
+      console.log('cleanup');
+      clearTimeout(identifier);
+    }; //cleaning up fn
   }, [enteredEmail, enteredPassword]) //setFormIsValid would be re-ren only if of the three/two would change
   
 
