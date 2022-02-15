@@ -49,19 +49,20 @@ const Login = (props) => {
     };
   }, []);
 
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: passwordIsValid } = passwordState; //now it wont check the validity after typing every char. When password/email is valid it stops the validation proces in useEffect. Before it was checking for the validity with every char
+
   useEffect(() => {
     const identifier = setTimeout(() => {
       console.log('validation');
-      setFormIsValid(
-       emailState.isValid && passwordState.isValid
-      );
+      setFormIsValid(emailIsValid && passwordIsValid);
     }, 500);
 
     return () => {
       console.log('cleanup');
       clearTimeout(identifier);
     }; //cleaning up fn
-  }, [emailState, passwordState]) //setFormIsValid would be re-ren only if of the three/two would change
+  }, [emailIsValid, passwordIsValid]) //setFormIsValid would be re-ren only if of the three/two would change
 
   const emailChangeHandler = (event) => {
     dispatchEmail({ type: "USER_INPUT", val: event.target.value });
