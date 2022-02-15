@@ -49,26 +49,26 @@ const Login = (props) => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const identifier = setTimeout(() => {
-  //     console.log('validation');
-  //     setFormIsValid(
-  //       enteredEmail.includes('@') && enteredPassword.trim().length > 6
-  //     );
-  //   }, 500);
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log('validation');
+      setFormIsValid(
+       emailState.isValid && passwordState.isValid
+      );
+    }, 500);
 
-  //   return () => {
-  //     console.log('cleanup');
-  //     clearTimeout(identifier);
-  //   }; //cleaning up fn
-  // }, [enteredEmail, enteredPassword]) //setFormIsValid would be re-ren only if of the three/two would change
+    return () => {
+      console.log('cleanup');
+      clearTimeout(identifier);
+    }; //cleaning up fn
+  }, [emailState, passwordState]) //setFormIsValid would be re-ren only if of the three/two would change
 
   const emailChangeHandler = (event) => {
     dispatchEmail({ type: "USER_INPUT", val: event.target.value });
 
-    setFormIsValid(
-      event.target.value.includes("@") && passwordState.isValid
-    );
+    // setFormIsValid(
+    //   event.target.value.includes("@") && passwordState.isValid
+    // );
   };
 
   const passwordChangeHandler = (event) => {
